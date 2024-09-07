@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intersection Observer Lazy Loading</title>
+  <style>
+    .container {
+      height: 1500px;
+    }
+    .lazy-image {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Lazy load images -->
+    <img class="lazy-image" data-src="image1.jpg" alt="Image 1">
+    <img class="lazy-image" data-src="image2.jpg" alt="Image 2">
+    <img class="lazy-image" data-src="image3.jpg" alt="Image 3">
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Callback function for Intersection Observer
+      const handleIntersection = (entries, observer) => {
+        entries.forEach(entry => {
+          // 进入视口时entry.isIntersecting: true
+          if (entry.isIntersecting) {
+            // 监听的target, img
+            const img = entry.target;
+            img.src = img.dataset.src; // 替换src <- data-src 
+            img.onload = () => img.classList.add('loaded');
+            observer.unobserve(img); // Stop observing
+          }
+        });
+      };
+
+      // Create an Intersection Observer instance
+      const observer = new IntersectionObserver(handleIntersection, {
+        root: null, // Use the viewport as root
+        rootMargin: '0px', // Margin around root
+        threshold: 0.1 // Trigger when 10% of the target is visible
+      });
+
+      // Observe imgs
+      document.querySelectorAll('.lazy-image').forEach(img => {
+        observer.observe(img);
+      });
+    });
+  </script>
+</body>
+</html>
