@@ -1,1 +1,1 @@
-import { RequestPool } from './requestPool.js'
+export { RequestPool } from './requestPool.js'

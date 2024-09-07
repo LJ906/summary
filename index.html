@@ -4,11 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    #container {
+        height: 400px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        position: relative;
+    }
+    #list {
+        position: relative;
+        width: 100%;
+    }
+    .item {
+        height: 50px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+    }
+</style>
 </head>
 <body>
-  <div>
-    hi
+
+  <!-- 虚拟列表案例 -->
+  <div id="container">
+    <div id="list"></div>
   </div>
+
+  <script src="virtualList.js"></script>
   <!-- <script src="./main.js" type="module"></script> -->
 </body>
 </html>
